@@ -18,10 +18,10 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => 'Maruf islam',
-            'email' => 'maruf@gmail.com',
+            'name' => $this->faker->name(),
+            'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => bcrypt('12345'), // password
+            'password' => bcrypt('123456'),
             'remember_token' => Str::random(10),
         ];
     }
