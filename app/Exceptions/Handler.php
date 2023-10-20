@@ -2,13 +2,16 @@
 
 namespace App\Exceptions;
 
-use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Symfony\Component\HttpFoundation\Response;
 use Throwable;
+use App\Traits\APIResponseTrait;
 
 class Handler extends ExceptionHandler
 {
+    use APIResponseTrait;
+
     /**
      * The list of the inputs that are never flashed to the session on validation exceptions.
      *
@@ -40,13 +43,13 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        if ($request->wantsJson()) {   //add Accept: application/json in request
+        if ($request->wantsJson()) {
             return $this->handleApiException($request, $exception);
         }
             return parent::render($request, $exception);
     }
 
-    private function handleApiException($request, Exception $exception)
+    private function handleApiException($request, $exception)
     {
         $exception = $this->prepareException($exception);
         if ($exception instanceof HttpResponseException) {
@@ -71,38 +74,10 @@ class Handler extends ExceptionHandler
         } else {
             $statusCode = 500;
         }
+        $message = Response::$statusTexts[$statusCode]  ?? $exception->getMessage();
 
-        $response = [];
 
-        switch ($statusCode) {
-            case 401:
-                $response['message'] = 'Unauthorized';
-                break;
-            case 403:
-                $response['message'] = 'Forbidden';
-                break;
-            case 404:
-                $response['message'] = 'Not Found';
-                break;
-            case 405:
-                $response['message'] = 'Method Not Allowed';
-                break;
-            case 422:
-                $response['message'] = $exception->original['message'];
-                $response['errors'] = $exception->original['errors'];
-                break;
-            default:
-                $response['message'] = ($statusCode == 500) ? 'Something went wrong' : $exception->getMessage();
-                break;
-        }
 
-        if (config('app.debug')) {
-            $response['trace'] = $exception->getTrace();
-            $response['code'] = $exception->getCode();
-        }
-
-        $response['status'] = $statusCode;
-
-        return response()->json($response, $statusCode);
+        return $this->errorResponse([], $message, $statusCode);
     }
 }

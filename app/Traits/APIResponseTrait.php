@@ -11,11 +11,22 @@ trait APIResponseTrait
      * Success Response.
      *
      * @param  mixed  $data
+     * @param string $message
      * @param  int  $statusCode
      * @return JsonResponse
      */
-    private function successResponse(mixed $data, int $statusCode = Response::HTTP_OK): JsonResponse
+    private function successResponse(mixed $data, string $message, int $statusCode = Response::HTTP_OK): JsonResponse
     {
+        if (!$message) {
+            $message = Response::$statusTexts[$statusCode];
+        }
+
+        $data = [
+            'success' => true,
+            'code' => $statusCode,
+            'message' => $message,
+            'data' => $data,
+        ];
         return new JsonResponse($data, $statusCode);
     }
 
@@ -34,8 +45,10 @@ trait APIResponseTrait
         }
 
         $data = [
+            'success' => false,
+            'code' => $statusCode,
             'message' => $message,
-            'errors' => $data,
+            'data' => $data,
         ];
 
         return new JsonResponse($data, $statusCode);
@@ -45,32 +58,34 @@ trait APIResponseTrait
      * Response with status code 200.
      *
      * @param  mixed  $data
+     * @param  string  $message
      * @return JsonResponse
      */
-    public function okResponse(mixed $data): JsonResponse
+    public function okResponse(mixed $data, string $message = ''): JsonResponse
     {
-        return $this->successResponse($data);
+        return $this->successResponse($data, $message);
     }
 
     /**
      * Response with status code 201.
      *
      * @param  mixed  $data
+     * @param  string  $message
      * @return JsonResponse
      */
-    public function createdResponse(mixed $data): JsonResponse
+    public function createdResponse(mixed $data, string $message = ''): JsonResponse
     {
-        return $this->successResponse($data, Response::HTTP_CREATED);
+        return $this->successResponse($data, $message, Response::HTTP_CREATED);
     }
 
     /**
      * Response with status code 204.
-     *
+     * @param  string  $message
      * @return JsonResponse
      */
-    public function noContentResponse(): JsonResponse
+    public function noContentResponse(string $message = ''): JsonResponse
     {
-        return $this->successResponse([], Response::HTTP_NO_CONTENT);
+        return $this->successResponse([], $message, Response::HTTP_NO_CONTENT);
     }
 
     /**
