@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Traits;
+namespace App\Services;
 
-use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\JsonResponse;
 
-trait APIResponseTrait
+/**
+ * Class APIResponseService.
+ */
+class APIResponseService
 {
     /**
      * Success Response.
@@ -15,7 +18,7 @@ trait APIResponseTrait
      * @param  int  $statusCode
      * @return JsonResponse
      */
-    private function successResponse(mixed $data, string $message, int $statusCode = Response::HTTP_OK): JsonResponse
+    public function successResponse(mixed $data, string $message, int $statusCode = Response::HTTP_OK): JsonResponse
     {
         if (!$message) {
             $message = Response::$statusTexts[$statusCode];
@@ -38,7 +41,7 @@ trait APIResponseTrait
      * @param  int  $statusCode
      * @return JsonResponse
      */
-    private function errorResponse(mixed $data, string $message = '', int $statusCode = Response::HTTP_INTERNAL_SERVER_ERROR): JsonResponse
+    public function errorResponse(mixed $data, string $message = '', int $statusCode = Response::HTTP_INTERNAL_SERVER_ERROR): JsonResponse
     {
         if (!$message) {
             $message = Response::$statusTexts[$statusCode];

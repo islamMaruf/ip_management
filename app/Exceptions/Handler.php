@@ -2,17 +2,14 @@
 
 namespace App\Exceptions;
 
+use APIResponse;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Http\Exceptions\HttpResponseException;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
-use App\Traits\APIResponseTrait;
 use Illuminate\Validation\ValidationException;
 
 class Handler extends ExceptionHandler
 {
-    use APIResponseTrait;
-
     /**
      * The list of the inputs that are never flashed to the session on validation exceptions.
      *
@@ -54,10 +51,11 @@ class Handler extends ExceptionHandler
     {
         $errors = [];
         $statusCode = method_exists($exception, 'getStatusCode') ? $exception->getStatusCode() : 500;
-        $message = Response::$statusTexts[$statusCode]  ?? $exception->getMessage();
         if ($exception instanceof ValidationException) {
             $errors = $exception->errors();
+            $statusCode = $exception->status ?? Response::HTTP_UNPROCESSABLE_ENTITY;
         }
-        return $this->errorResponse($errors, $message, $statusCode);
+        $message = Response::$statusTexts[$statusCode]  ?? $exception->getMessage();
+        return APIResponse::errorResponse($errors, $message, $statusCode);
     }
 }

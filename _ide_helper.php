@@ -18791,6 +18791,181 @@
      
 }
 
+    namespace App\Facade { 
+            /**
+     * 
+     *
+     */ 
+        class APIResponseFacade {
+                    /**
+         * Success Response.
+         *
+         * @param mixed $data
+         * @param string $message
+         * @param int $statusCode
+         * @return \Illuminate\Http\JsonResponse 
+         * @static 
+         */ 
+        public static function successResponse($data, $message, $statusCode = 200)
+        {
+                        /** @var \App\Services\APIResponseService $instance */
+                        return $instance->successResponse($data, $message, $statusCode);
+        }
+                    /**
+         * Error Response.
+         *
+         * @param mixed $data
+         * @param string $message
+         * @param int $statusCode
+         * @return \Illuminate\Http\JsonResponse 
+         * @static 
+         */ 
+        public static function errorResponse($data, $message = '', $statusCode = 500)
+        {
+                        /** @var \App\Services\APIResponseService $instance */
+                        return $instance->errorResponse($data, $message, $statusCode);
+        }
+                    /**
+         * Response with status code 200.
+         *
+         * @param mixed $data
+         * @param string $message
+         * @return \Illuminate\Http\JsonResponse 
+         * @static 
+         */ 
+        public static function okResponse($data, $message = '')
+        {
+                        /** @var \App\Services\APIResponseService $instance */
+                        return $instance->okResponse($data, $message);
+        }
+                    /**
+         * Response with status code 201.
+         *
+         * @param mixed $data
+         * @param string $message
+         * @return \Illuminate\Http\JsonResponse 
+         * @static 
+         */ 
+        public static function createdResponse($data, $message = '')
+        {
+                        /** @var \App\Services\APIResponseService $instance */
+                        return $instance->createdResponse($data, $message);
+        }
+                    /**
+         * Response with status code 204.
+         *
+         * @param string $message
+         * @return \Illuminate\Http\JsonResponse 
+         * @static 
+         */ 
+        public static function noContentResponse($message = '')
+        {
+                        /** @var \App\Services\APIResponseService $instance */
+                        return $instance->noContentResponse($message);
+        }
+                    /**
+         * Response with status code 400.
+         *
+         * @param mixed $data
+         * @param string $message
+         * @return \Illuminate\Http\JsonResponse 
+         * @static 
+         */ 
+        public static function badRequestResponse($data, $message = '')
+        {
+                        /** @var \App\Services\APIResponseService $instance */
+                        return $instance->badRequestResponse($data, $message);
+        }
+                    /**
+         * Response with status code 401.
+         *
+         * @param mixed $data
+         * @param string $message
+         * @return \Illuminate\Http\JsonResponse 
+         * @static 
+         */ 
+        public static function unauthorizedResponse($data, $message = '')
+        {
+                        /** @var \App\Services\APIResponseService $instance */
+                        return $instance->unauthorizedResponse($data, $message);
+        }
+                    /**
+         * Response with status code 403.
+         *
+         * @param mixed $data
+         * @param string $message
+         * @return \Illuminate\Http\JsonResponse 
+         * @static 
+         */ 
+        public static function forbiddenResponse($data, $message = '')
+        {
+                        /** @var \App\Services\APIResponseService $instance */
+                        return $instance->forbiddenResponse($data, $message);
+        }
+                    /**
+         * Response with status code 404.
+         *
+         * @param mixed $data
+         * @param string $message
+         * @return \Illuminate\Http\JsonResponse 
+         * @static 
+         */ 
+        public static function notFoundResponse($data, $message = '')
+        {
+                        /** @var \App\Services\APIResponseService $instance */
+                        return $instance->notFoundResponse($data, $message);
+        }
+                    /**
+         * Response with status code 409.
+         *
+         * @param mixed $data
+         * @param string $message
+         * @return \Illuminate\Http\JsonResponse 
+         * @static 
+         */ 
+        public static function conflictResponse($data, $message = '')
+        {
+                        /** @var \App\Services\APIResponseService $instance */
+                        return $instance->conflictResponse($data, $message);
+        }
+                    /**
+         * Response with status code 422.
+         *
+         * @param mixed $data
+         * @param string $message
+         * @return \Illuminate\Http\JsonResponse 
+         * @static 
+         */ 
+        public static function unprocessableResponse($data, $message = '')
+        {
+                        /** @var \App\Services\APIResponseService $instance */
+                        return $instance->unprocessableResponse($data, $message);
+        }
+         
+    }
+            /**
+     * 
+     *
+     */ 
+        class ActivityLoggerFacade {
+                    /**
+         * Log Activity.
+         *
+         * @param null $description
+         * @param null $details
+         * @return void 
+         * @static 
+         */ 
+        public static function track($description = null, $details = null)
+        {
+                        /** @var \App\Services\ActivityLoggerService $instance */
+                        $instance->track($description, $details);
+        }
+         
+    }
+     
+}
+
     namespace Spatie\LaravelIgnition\Facades { 
             /**
      * 
@@ -23230,6 +23405,8 @@ namespace  {
             class Vite extends \Illuminate\Support\Facades\Vite {}
             class JWTAuth extends \Tymon\JWTAuth\Facades\JWTAuth {}
             class JWTFactory extends \Tymon\JWTAuth\Facades\JWTFactory {}
+            class APIResponse extends \App\Facade\APIResponseFacade {}
+            class ActivityTracker extends \App\Facade\ActivityLoggerFacade {}
             class Flare extends \Spatie\LaravelIgnition\Facades\Flare {}
      
 }

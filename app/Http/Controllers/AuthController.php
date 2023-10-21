@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use APIResponse;
 use App\Http\Requests\LoginRequest;
+use ActivityLogger;
+use ActivityTracker;
 
 class AuthController extends Controller
 {
@@ -24,10 +27,11 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         if (! $token = auth()->attempt($request->only(['email','password']))) {
-            return $this->unauthorizedResponse([], 'Token not found');
+            return APIResponse::unauthorizedResponse([], 'Token not found');
         }
-
-        return $this->createNewToken($token);
+        $token = $this->createNewToken($token);
+        ActivityTracker::track("Login activity");
+        return  $token;
     }
 
     /**
@@ -38,8 +42,8 @@ class AuthController extends Controller
     public function logout()
     {
         auth()->logout();
-
-        return $this->okResponse([], 'User successfully signed out');
+        ActivityTracker::track("Logout activity");
+        return APIResponse::okResponse([], 'User successfully signed out');
     }
 
     /**
@@ -49,7 +53,9 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-        return $this->createNewToken(auth()->refresh());
+        $token = $this->createNewToken(auth()->refresh());
+        ActivityTracker::track("Token refresh");
+        return $token;
     }
 
     /**
@@ -59,7 +65,7 @@ class AuthController extends Controller
      */
     public function userProfile()
     {
-        return $this->okResponse(auth()->user(), 'Fetch logged in user data');
+        return APIResponse::okResponse(auth()->user(), 'Fetch logged in user data');
     }
 
     /**
@@ -71,7 +77,7 @@ class AuthController extends Controller
      */
     protected function createNewToken($token)
     {
-        return $this->createdResponse([
+        return APIResponse::createdResponse([
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60,
