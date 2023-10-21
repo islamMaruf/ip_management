@@ -7,6 +7,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 use App\Traits\APIResponseTrait;
+use Illuminate\Validation\ValidationException;
 
 class Handler extends ExceptionHandler
 {
@@ -44,40 +45,19 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         if ($request->wantsJson()) {
-            return $this->handleApiException($request, $exception);
+            return $this->handleApiException($exception);
         }
             return parent::render($request, $exception);
     }
 
-    private function handleApiException($request, $exception)
+    private function handleApiException($exception)
     {
-        $exception = $this->prepareException($exception);
-        if ($exception instanceof HttpResponseException) {
-            $exception = $exception->getResponse();
-        }
-
-        if ($exception instanceof \Illuminate\Auth\AuthenticationException) {
-            $exception = $this->unauthenticated($request, $exception);
-        }
-
-        if ($exception instanceof \Illuminate\Validation\ValidationException) {
-            $exception = $this->convertValidationExceptionToResponse($exception, $request);
-        }
-
-        return $this->customApiResponse($exception);
-    }
-
-    private function customApiResponse($exception)
-    {
-        if (method_exists($exception, 'getStatusCode')) {
-            $statusCode = $exception->getStatusCode();
-        } else {
-            $statusCode = 500;
-        }
+        $errors = [];
+        $statusCode = method_exists($exception, 'getStatusCode') ? $exception->getStatusCode() : 500;
         $message = Response::$statusTexts[$statusCode]  ?? $exception->getMessage();
-
-
-
-        return $this->errorResponse([], $message, $statusCode);
+        if ($exception instanceof ValidationException) {
+            $errors = $exception->errors();
+        }
+        return $this->errorResponse($errors, $message, $statusCode);
     }
 }
