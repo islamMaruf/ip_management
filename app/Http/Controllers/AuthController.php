@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use APIResponse;
 use App\Http\Requests\LoginRequest;
+use ActivityLogger;
+use ActivityTracker;
 
 class AuthController extends Controller
 {
@@ -27,9 +29,9 @@ class AuthController extends Controller
         if (! $token = auth()->attempt($request->only(['email','password']))) {
             return APIResponse::unauthorizedResponse([], 'Token not found');
         }
-        $this->activity("Login activity");
-
-        return $this->createNewToken($token);
+        $token = $this->createNewToken($token);
+        ActivityTracker::track("Login activity");
+        return  $token;
     }
 
     /**
@@ -40,7 +42,7 @@ class AuthController extends Controller
     public function logout()
     {
         auth()->logout();
-
+        ActivityTracker::track("Logout activity");
         return APIResponse::okResponse([], 'User successfully signed out');
     }
 
@@ -51,7 +53,9 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-        return $this->createNewToken(auth()->refresh());
+        $token = $this->createNewToken(auth()->refresh());
+        ActivityTracker::track("Token refresh");
+        return $token;
     }
 
     /**

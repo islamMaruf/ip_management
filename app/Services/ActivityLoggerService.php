@@ -23,7 +23,7 @@ class ActivityLoggerService
      *
      * @return void
      */
-    public function activity($description = null, $details = null)
+    public function track($description = null, $details = null)
     {
         try {
             $user_type = "GUEST";
