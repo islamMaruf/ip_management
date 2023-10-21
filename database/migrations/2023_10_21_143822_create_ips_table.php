@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('ips', function (Blueprint $table) {
             $table->id();
+            $table->ipAddress('ip')->nullable();
+            $table->string('comment')->nullable();
             $table->timestamps();
         });
     }
