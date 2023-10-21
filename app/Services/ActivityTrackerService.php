@@ -6,14 +6,12 @@ use APIResponse;
 use App\Models\ActivityLogger;
 use Auth;
 use Exception;
-use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Http\JsonResponse;
 use Request;
 
 /**
- * Class ActivityLoggerService.
+ * Class ActivityTrackerService.
  */
-class ActivityLoggerService
+class ActivityTrackerService
 {
 /**
      * Log Activity.
@@ -69,7 +67,7 @@ class ActivityLoggerService
 
             $data = [
                 'description'   => $description,
-                'details'       => $details,
+                'details'       => $details ? json_encode($details , true) : null,
                 'userType'      => $user_type,
                 'userId'        => $user_id,
                 'route'         => Request::fullUrl(),
@@ -81,10 +79,10 @@ class ActivityLoggerService
 
             self::storeActivity($data);
             $response_data = APIResponse::createdResponse($data);
-            infoLog(__METHOD__, "Activity Log inserted ", json_encode($response_data));
+            infoLog(__METHOD__, "Activity tracker log inserted ", json_encode($response_data));
         } catch (Exception $e) {
             $response_data = APIResponse::errorResponse([], $e->getMessage());
-            errorLog(__METHOD__, "Activity Logger Error", $response_data);
+            errorLog(__METHOD__, "Activity tracker error", json_encode($response_data));
         }
     }
 

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest
+class UpdateIPRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,9 +21,10 @@ class LoginRequest extends FormRequest
      */
     public function rules(): array
     {
+        $ignore_id = last(request()->segments());
         return [
-            'email' => 'bail|required|email',
-            'password' => 'bail|required|min:6|max:17'
+            'ip' => 'required|ipv4|unique:ips,ip,' . $ignore_id,
+            'comment' => 'required|max:255'
         ];
     }
 }

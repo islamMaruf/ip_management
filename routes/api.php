@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\IPController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,13 +23,16 @@ Route::get('/', function () {
 });
 Route::group([
     'middleware' => 'api',
-    'prefix' => 'auth'
-
 ], function () {
-    Route::post('/login', [AuthController::class, 'login']);
-    Route::group(['middleware' => 'jwt.verify'], function () {
-        Route::post('/logout', [AuthController::class, 'logout']);
-        Route::post('/refresh', [AuthController::class, 'refresh']);
-        Route::get('/user-profile', [AuthController::class, 'userProfile']);
+    Route::group(['prefix' => 'auth'], function () {
+        Route::post('/login', [AuthController::class, 'login']);
+        Route::group(['middleware' => 'jwt.verify'], function () {
+            Route::post('/logout', [AuthController::class, 'logout']);
+            Route::post('/refresh', [AuthController::class, 'refresh']);
+            Route::get('/user-profile', [AuthController::class, 'userProfile']);
+        });
+    });
+    Route::group(['middleware' => 'jwt.auth'], function () {
+        Route::resource('/ip', IPController::class);
     });
 });

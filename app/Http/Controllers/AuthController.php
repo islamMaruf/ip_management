@@ -41,6 +41,7 @@ class AuthController extends Controller
      */
     public function logout()
     {
+        ActivityTracker::track("Attempt to Logout");
         auth()->logout();
         ActivityTracker::track("Logout activity");
         return APIResponse::okResponse([], 'User successfully signed out');

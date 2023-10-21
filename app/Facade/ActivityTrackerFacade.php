@@ -4,7 +4,7 @@ namespace App\Facade;
 
 use Illuminate\Support\Facades\Facade;
 
-class ActivityLoggerFacade extends Facade
+class ActivityTrackerFacade extends Facade
 {
     protected static function getFacadeAccessor()
     {
