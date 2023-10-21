@@ -18943,6 +18943,26 @@
         }
          
     }
+            /**
+     * 
+     *
+     */ 
+        class ActivityLoggerFacade {
+                    /**
+         * Log Activity.
+         *
+         * @param null $description
+         * @param null $details
+         * @return void 
+         * @static 
+         */ 
+        public static function track($description = null, $details = null)
+        {
+                        /** @var \App\Services\ActivityLoggerService $instance */
+                        $instance->track($description, $details);
+        }
+         
+    }
      
 }
 
@@ -23386,6 +23406,7 @@ namespace  {
             class JWTAuth extends \Tymon\JWTAuth\Facades\JWTAuth {}
             class JWTFactory extends \Tymon\JWTAuth\Facades\JWTFactory {}
             class APIResponse extends \App\Facade\APIResponseFacade {}
+            class ActivityTracker extends \App\Facade\ActivityLoggerFacade {}
             class Flare extends \Spatie\LaravelIgnition\Facades\Flare {}
      
 }
