@@ -2,7 +2,11 @@
 
 namespace App\Providers;
 
-use App\Services\ActivityLoggerService;
+use App\Http\Interfaces\IPRepositoryInterface;
+use App\Models\IP;
+use App\Observers\IPObserver;
+use App\Repositories\IPRepository;
+use App\Services\ActivityTrackerService;
 use App\Services\APIResponseService;
 use Illuminate\Support\ServiceProvider;
 
@@ -13,12 +17,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind('api_response', function () {
-            return new APIResponseService();
-        });
-        $this->app->bind('activity_logger', function () {
-            return new ActivityLoggerService();
-        });
+        $this->app->bind('api_response', APIResponseService::class);
+        $this->app->bind('activity_logger', ActivityTrackerService::class);
+        $this->app->bind(IPRepositoryInterface::class, IPRepository::class);
     }
 
     /**
@@ -26,6 +27,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        IP::observe(IPObserver::class);
     }
 }

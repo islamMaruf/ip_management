@@ -1,6 +1,6 @@
 <?php
 
-use App\Facade\ActivityLoggerFacade;
+use App\Facade\ActivityTrackerFacade;
 use App\Facade\APIResponseFacade;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
@@ -189,7 +189,7 @@ return [
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         'APIResponse' => APIResponseFacade::class,
-        'ActivityTracker' => ActivityLoggerFacade::class
+        'ActivityTracker' => ActivityTrackerFacade::class
     ])->toArray(),
 
 ];
