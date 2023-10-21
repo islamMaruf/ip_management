@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
-use Illuminate\Http\Request;
-use App\Models\User;
-use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -27,7 +24,7 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         if (! $token = auth()->attempt($request->only(['email','password']))) {
-            return $this->unauthorizedResponse([]);
+            return $this->unauthorizedResponse([], 'Token not found');
         }
 
         return $this->createNewToken($token);
