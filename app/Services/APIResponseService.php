@@ -15,22 +15,22 @@ class APIResponseService
      *
      * @param  mixed  $data
      * @param string $message
-     * @param  int  $statusCode
+     * @param  int  $status_code
      * @return JsonResponse
      */
-    public function successResponse(mixed $data, string $message, int $statusCode = Response::HTTP_OK): JsonResponse
+    public function successResponse(mixed $data, string $message, int $status_code = Response::HTTP_OK): JsonResponse
     {
         if (!$message) {
-            $message = Response::$statusTexts[$statusCode];
+            $message = Response::$statusTexts[$status_code];
         }
 
         $data = [
             'success' => true,
-            'code' => $statusCode,
+            'code' => $status_code,
             'message' => $message,
             'data' => $data,
         ];
-        return new JsonResponse($data, $statusCode);
+        return response()->json($data, $status_code);
     }
 
     /**
@@ -38,23 +38,23 @@ class APIResponseService
      *
      * @param  mixed  $data
      * @param  string  $message
-     * @param  int  $statusCode
+     * @param  int  $status_code
      * @return JsonResponse
      */
-    public function errorResponse(mixed $data, string $message = '', int $statusCode = Response::HTTP_INTERNAL_SERVER_ERROR): JsonResponse
+    public function errorResponse(mixed $data, string $message = '', int $status_code = Response::HTTP_INTERNAL_SERVER_ERROR): JsonResponse
     {
         if (!$message) {
-            $message = Response::$statusTexts[$statusCode];
+            $message = Response::$statusTexts[$status_code];
         }
 
         $data = [
             'success' => false,
-            'code' => $statusCode,
+            'code' => $status_code,
             'message' => $message,
             'data' => $data,
         ];
 
-        return new JsonResponse($data, $statusCode);
+        return response()->json($data, $status_code);
     }
 
     /**

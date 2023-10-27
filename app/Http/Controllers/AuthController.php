@@ -27,7 +27,7 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         if (! $token = auth()->attempt($request->only(['email','password']))) {
-            return APIResponse::unauthorizedResponse([], 'Token not found');
+            return APIResponse::unauthorizedResponse([], 'Email or password do not match');
         }
         $token = $this->createNewToken($token);
         ActivityTracker::track("Login activity");
@@ -78,7 +78,7 @@ class AuthController extends Controller
      */
     protected function createNewToken($token)
     {
-        return APIResponse::createdResponse([
+        return APIResponse::okResponse([
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60,
