@@ -6,7 +6,7 @@
         "url" : "https://islammaruf.github.io"
       },
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
+    "description": "Create Edit and Update Ip",
     "keywords": [
         "laravel",
         "framework"
