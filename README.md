@@ -64,11 +64,11 @@ Run the database seeder and you're done
 
     php artisan migrate:refresh
 
-## Run the test cases
+## Running Tests
 
-Run the test cases after setup the application
-
-    php artisan test
+To run tests, run the following command
+  
+  php artisan test
 
 ***Note*** : It's recommended that phpunit.xml file is properly setup for running the test case and sqlite php extension is installed on the system
 
@@ -116,3 +116,104 @@ Request headers
 | Optional 	| Authorization    	| Bearer {TOKEN}    |
 
 ----------
+## API Documentation
+
+## Authorization
+
+All the requests rather that login need Bearer token to authenticate the api
+
+To authenticate an API request, you should provide your Token in the `Authorization` header.
+
+#### Getting the authenticated user’s details
+Returns details of the authenticate user of the application.
+
+```
+GET /auth/user-profile
+```
+
+Example request:
+
+```
+GET /api/auth/user-profile HTTP/1.1
+Host: 127.0.0.1:8000
+Accept: application/json
+Authorization: Bearer {TOKEN}
+```
+
+The response is a User object within a data.
+
+Example response:
+
+```
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+{
+    "success": true,
+    "code": 200,
+    "message": "Fetch logged in user data",
+    "data": {
+        "id": 1,
+        "name": "Maruf islam",
+        "email": "maruf@gmail.com",
+        "email_verified_at": "2023-10-28T07:40:15.000000Z",
+        "created_at": "2023-10-28T07:40:15.000000Z",
+        "updated_at": "2023-10-28T07:40:15.000000Z"
+    }
+}
+```
+Where a User object is:
+
+| Field      | Type   | Description                                     |
+| -----------|--------|-------------------------------------------------|
+| id         | string | A unique identifier for the user.               |
+| name       | string | The user’s name .                               |
+| email      | string | The URL to the user’s email.                    |
+| email_verified_at   | string |  Timestamp when email verified         |
+| created_at | string |  Timestamp when user created                    |
+| updated_at | string |  Timestamp when user updated                    |
+
+Possible errors:
+
+| Error code           | Description                                     |
+| ---------------------|-------------------------------------------------|
+| 401                  | Unauthorized                                    |
+
+## Responses
+
+Many API endpoints return the JSON representation of the resources created or edited. However, if an invalid request is submitted, or some other error occurs,JSON responses in the following format:
+
+```javascript
+{
+  "success" : bool,
+  "code"    : number,
+  "message" : string,
+  "data"    : string
+}
+```
+
+The `success` attribute describes if the transaction was successful or not.
+
+The `code` attribute describes a code releted to the transaction.
+
+The `message` attribute contains a message commonly used to indicate errors or, in the case of deleting a resource, success that the resource was properly deleted.
+
+The `data` attribute contains any other metadata associated with the response. This will be an escaped string containing JSON data.
+
+## Status Codes
+
+The following status codes in its API:
+
+| Status Code | Description |
+| :--- | :--- |
+| 200 | `OK` |
+| 201 | `CREATED` |
+| 204 | `NO CONTENT` |
+| 400 | `BAD REQUEST` |
+| 401 | `UNAUTHORIZED` |
+| 403 | `FORBIDDEN` |
+| 404 | `NOT FOUND` |
+| 422 | `UNPROCESSABLE ENTITY` |
+| 500 | `INTERNAL SERVER ERROR` |
+
+--------------------------------------------
+***Note*** : Full API documention is in process will be updated soon.
