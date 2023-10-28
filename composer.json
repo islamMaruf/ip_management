@@ -1,12 +1,7 @@
 {
-    "name": "IP Management",
-    "author": {
-        "name": "Md Maruf Islam",
-        "email": "marufislam7424@gmail.com",
-        "url" : "https://islammaruf.github.io"
-      },
+    "name": "laravel/laravel",
     "type": "project",
-    "description": "Create Edit and Update Ip",
+    "description": "The skeleton application for the Laravel framework.",
     "keywords": [
         "laravel",
         "framework"
