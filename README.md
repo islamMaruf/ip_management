@@ -228,11 +228,15 @@ Details            | Type      | Endpoint            |
 :---               |:---       |:---                 |
 Application Health | GET       | `/`                 |
 Login              | POST      | `/auth/login`       |
-User profile       | GET       |`/auth/user-profile` |
+User profile       | GET       | `/auth/user-profile` |
 All IPS            | GET       | `/ip`               |
 Create IP          | POST      | `/ip`               |
 Show IP            | GET       | `/ip/{id}`          |
 Edit IP            | PATCH     | `/ip/{id}`          |
+Delete IP          | DELETE    | `/ip/{id}`          |
+Activity log       | GET       | `/activity-logger`  |
+Refresh token      | POST      | `/auth/refresh`     |
+Logout             | POST      | `/auth/logout`      |
 
 --------------------------------------------
 ***Note*** : Full API documentation is in process will be updated soon.
