@@ -21,7 +21,7 @@ class ActivityTrackerService
      *
      * @return void
      */
-    public function track($description = null, $details = null)
+    public function track($description = null, $payload = null)
     {
         try {
             $user_type = "GUEST";
@@ -67,7 +67,7 @@ class ActivityTrackerService
 
             $data = [
                 'description'   => $description,
-                'details'       => $details ? json_encode($details , true) : null,
+                'payload'       => $payload ? json_encode($payload, true) : null,
                 'userType'      => $user_type,
                 'userId'        => $user_id,
                 'route'         => Request::fullUrl(),
@@ -97,7 +97,7 @@ class ActivityTrackerService
     {
         ActivityLogger::create([
             'description'   => $data['description'],
-            'details'       => $data['details'],
+            'payload'       => $data['payload'],
             'userType'      => $data['userType'],
             'userId'        => $data['userId'],
             'route'         => $data['route'],

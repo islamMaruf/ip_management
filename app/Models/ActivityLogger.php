@@ -11,7 +11,7 @@ class ActivityLogger extends Model
 
     protected $fillable = [
         'description',
-        'details',
+        'payload',
         'userType',
         'userId',
         'route',

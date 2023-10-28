@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('activity_loggers', function (Blueprint $table) {
             $table->id();
             $table->longText('description')->nullable();
-            $table->longText('details')->nullable();
+            $table->longText('payload')->nullable();
             $table->string('userType')->nullable();
             $table->integer('userId')->nullable();
             $table->longText('route')->nullable();
