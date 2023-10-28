@@ -12,6 +12,6 @@ class IPTableSeeder extends Seeder
      */
     public function run(): void
     {
-        IP::factory(1000)->create();
+        IP::factory(10)->create();
     }
 }
