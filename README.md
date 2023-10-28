@@ -67,6 +67,7 @@ Run the database seeder and you're done
 ## Running Tests
 
 To run tests, run the following command
+    
     php artisan test
 
 ***Note*** : It's recommended that phpunit.xml file is properly setup for running the test case and sqlite php extension is installed on the system
@@ -215,4 +216,4 @@ The following status codes in its API:
 | 500 | `INTERNAL SERVER ERROR` |
 
 --------------------------------------------
-***Note*** : Full API documention is in process will be updated soon.
+***Note*** : Full API documentation is in process will be updated soon.
