@@ -11,4 +11,5 @@ abstract class TestCase extends BaseTestCase
     public const TEST_LOGIN_URL = '/api/auth/login';
     public const TEST_LOGOUT_URL = '/api/auth/logout';
     public const TEST_REFRESH_TOKEN_URL = '/api/auth/refresh';
+     public const TEST_IP_URL = 'api/ip' ;
 }
