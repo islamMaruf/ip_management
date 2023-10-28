@@ -17,7 +17,7 @@ class ActivityTrackerService
      * Log Activity.
      *
      * @param null $description
-     * @param null $details
+     * @param null $payload
      *
      * @return void
      */
