@@ -4,7 +4,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 10.28.0.
+ * Generated for Laravel 10.29.0.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -435,6 +435,18 @@
         {
                         /** @var \Illuminate\Foundation\Application $instance */
                         return $instance->runningInConsole();
+        }
+                    /**
+         * Determine if the application is running any of the given console commands.
+         *
+         * @param string|array $commands
+         * @return bool 
+         * @static 
+         */ 
+        public static function runningConsoleCommand(...$commands)
+        {
+                        /** @var \Illuminate\Foundation\Application $instance */
+                        return $instance->runningConsoleCommand(...$commands);
         }
                     /**
          * Determine if the application is running unit tests.
@@ -18802,28 +18814,28 @@
          *
          * @param mixed $data
          * @param string $message
-         * @param int $statusCode
+         * @param int $status_code
          * @return \Illuminate\Http\JsonResponse 
          * @static 
          */ 
-        public static function successResponse($data, $message, $statusCode = 200)
+        public static function successResponse($data, $message, $status_code = 200)
         {
                         /** @var \App\Services\APIResponseService $instance */
-                        return $instance->successResponse($data, $message, $statusCode);
+                        return $instance->successResponse($data, $message, $status_code);
         }
                     /**
          * Error Response.
          *
          * @param mixed $data
          * @param string $message
-         * @param int $statusCode
+         * @param int $status_code
          * @return \Illuminate\Http\JsonResponse 
          * @static 
          */ 
-        public static function errorResponse($data, $message = '', $statusCode = 500)
+        public static function errorResponse($data, $message = '', $status_code = 500)
         {
                         /** @var \App\Services\APIResponseService $instance */
-                        return $instance->errorResponse($data, $message, $statusCode);
+                        return $instance->errorResponse($data, $message, $status_code);
         }
                     /**
          * Response with status code 200.
@@ -18941,6 +18953,19 @@
                         /** @var \App\Services\APIResponseService $instance */
                         return $instance->unprocessableResponse($data, $message);
         }
+                    /**
+         * Response with status code 500.
+         *
+         * @param mixed $data
+         * @param string $message
+         * @return \Illuminate\Http\JsonResponse 
+         * @static 
+         */ 
+        public static function serverResponse($data, $message = '')
+        {
+                        /** @var \App\Services\APIResponseService $instance */
+                        return $instance->serverResponse($data, $message);
+        }
          
     }
             /**
@@ -18952,14 +18977,14 @@
          * Log Activity.
          *
          * @param null $description
-         * @param null $details
+         * @param null $payload
          * @return void 
          * @static 
          */ 
-        public static function track($description = null, $details = null)
+        public static function track($description = null, $payload = null)
         {
                         /** @var \App\Services\ActivityTrackerService $instance */
-                        $instance->track($description, $details);
+                        $instance->track($description, $payload);
         }
          
     }
