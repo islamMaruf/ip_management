@@ -64,6 +64,11 @@ Run the database seeder and you're done
 
     php artisan migrate:refresh
 
+## Login Credentials
+
+    email: maruf@gmail.com
+    password: 123456
+
 ## Running Tests
 
 To run tests, run the following command
@@ -214,6 +219,20 @@ The following status codes in its API:
 | 404 | `NOT FOUND` |
 | 422 | `UNPROCESSABLE ENTITY` |
 | 500 | `INTERNAL SERVER ERROR` |
+
+## API Endpoints
+
+`Base URL: http://localhost:8000/api`
+
+Details            | Type      | Endpoint            |
+:---               |:---       |:---                 |
+Application Health | GET       | `/`                 |
+Login              | POST      | `/auth/login`       |
+User profile       | GET       |`/auth/user-profile` |
+All IPS            | GET       | `/ip`               |
+Create IP          | POST      | `/ip`               |
+Show IP            | GET       | `/ip/{id}`          |
+Edit IP            | PATCH     | `/ip/{id}`          |
 
 --------------------------------------------
 ***Note*** : Full API documentation is in process will be updated soon.
