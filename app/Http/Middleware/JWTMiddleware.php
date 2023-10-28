@@ -29,10 +29,11 @@ class JWTMiddleware extends BaseMiddleware
                 $message = 'Token is Invalid';
             } elseif ($e instanceof TokenExpiredException) {
                 $message = 'Token is Expired';
+                return APIResponse::unauthorizedResponse([], $message);
             } else {
                 $message = 'Authorization user not found';
             }
-            return APIResponse::unauthorizedResponse([], $message);
+            return APIResponse::forbiddenResponse([], $message);
         }
         return $next($request);
     }
