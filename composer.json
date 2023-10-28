@@ -1,5 +1,10 @@
 {
-    "name": "laravel/laravel",
+    "name": "IP Management",
+    "author": {
+        "name": "Md Maruf Islam",
+        "email": "marufislam7424@gmail.com",
+        "url" : "https://islammaruf.github.io"
+      },
     "type": "project",
     "description": "The skeleton application for the Laravel framework.",
     "keywords": [
