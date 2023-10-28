@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\IPController;
 use Illuminate\Http\Request;
@@ -34,5 +35,6 @@ Route::group([
     });
     Route::group(['middleware' => 'jwt.auth'], function () {
         Route::resource('/ip', IPController::class);
+        Route::get('activity-logger', ActivityController::class);
     });
 });
