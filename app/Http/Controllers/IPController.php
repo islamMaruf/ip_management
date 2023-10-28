@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use APIResponse;
-use App\Http\Interfaces\IPRepositoryInterface;
+use App\Interfaces\IPRepositoryInterface;
 use App\Http\Requests\StoreIPRequest;
 use App\Http\Requests\UpdateIPRequest;
 use Exception;

@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Http\Interfaces\IPRepositoryInterface;
+use App\Interfaces\IPRepositoryInterface;
 use App\Models\IP;
 use App\Observers\IPObserver;
 use App\Repositories\IPRepository;

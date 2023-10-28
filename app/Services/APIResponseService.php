@@ -162,4 +162,16 @@ class APIResponseService
     {
         return $this->errorResponse($data, $message, Response::HTTP_UNPROCESSABLE_ENTITY);
     }
+
+     /**
+     * Response with status code 500.
+     *
+     * @param  mixed  $data
+     * @param  string  $message
+     * @return JsonResponse
+     */
+    public function serverResponse(mixed $data, string $message = ''): JsonResponse
+    {
+        return $this->errorResponse($data, $message, Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
 }

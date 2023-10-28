@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Http\Interfaces\IPRepositoryInterface;
+use App\Interfaces\IPRepositoryInterface;
 use App\Models\IP;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
