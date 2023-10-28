@@ -21,7 +21,7 @@ class IPFactory extends Factory
     {
         return [
             'ip' => $this->faker->ipv4(),
-            'comment' => $this->faker->text(150)
+            'comment' => $this->faker->domainName()
         ];
     }
 }

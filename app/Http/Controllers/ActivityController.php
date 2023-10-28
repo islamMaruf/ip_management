@@ -15,7 +15,7 @@ class ActivityController extends Controller
     public function __invoke()
     {
         try {
-            $activity_loggers = ActivityLogger::get();
+            $activity_loggers = ActivityLogger::orderBy('id', 'DESC')->get();
             return APIResponse::okResponse($activity_loggers, 'Activity Logger fetched successfully');
         } catch (Exception $exception) {
             return APIResponse::errorResponse([], 'Activity logger can not be fetched');
