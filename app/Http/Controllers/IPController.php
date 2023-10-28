@@ -7,7 +7,6 @@ use App\Http\Interfaces\IPRepositoryInterface;
 use App\Http\Requests\StoreIPRequest;
 use App\Http\Requests\UpdateIPRequest;
 use Exception;
-use Illuminate\Http\Request;
 
 class IPController extends Controller
 {
